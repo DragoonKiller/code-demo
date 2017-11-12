@@ -9,8 +9,8 @@ using namespace std;
 
 typedef unsigned char byte;
 
-const int w = 200;
-const int h = 200;
+const int w = 2000;
+const int h = 2000;
 
 struct color
 {
@@ -21,7 +21,7 @@ struct color
     byte a;
 };
 
-color c[201][201];
+color c[w + 1][h + 1];
 
 void TypeSection()
 {
@@ -32,7 +32,14 @@ void TypeSection()
     int erx = FT_New_Face(lib, "./res/LiberationMono-Regular.ttf", 0, &face);
     if(erx) { cout<<"Load face failed."; } else { cout<<"Load face succeed."<<endl; }
     
-    FT_Set_Char_Size(face, 12<<8, 12<<8, 300, 300);
+    // Specify a font size.
+    // Different size my reffer to different glyph.
+    // For vectorial fonts, this may not be important though.
+    // second and third param: 32 bit fixed point number stored in 32 bit format.
+    // so we have this scale numbered 12, which means we want a character of 12/72 inch width and height.
+    // fourth and fifth param: ppi (Pixel per Inch) for screen's width and height.
+    // so now this character takes 300 * (12 / 72) = 50 pixels width and height.
+    FT_Set_Char_Size(face, 12<<6, 12<<6, 300, 300);
     
     auto indexA = FT_Get_Char_Index(face, 'A');
     
@@ -45,7 +52,7 @@ void TypeSection()
     
     // The rendered bitmap glyph size.
     // rendered object will be stored into face->glyph->buffer.
-    FT_Set_Pixel_Sizes(face, 128, 128);
+    FT_Set_Pixel_Sizes(face, 200, 200);
     
     FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
     
@@ -56,8 +63,8 @@ void TypeSection()
     cout<<"Bitmap store to an "<<w<<" * "<<h<<" array."<<endl;
     for(int i=0; i<h; i++) for(int j=0; j<w; j++)
     {
-        int mi = (int)round((double) i / h * pic.rows);
-        int mj = (int)round((double) j / w * pic.width);
+        int mi = (int)floor((double) i / h * pic.rows);
+        int mj = (int)floor((double) j / w * pic.width);
         c[i][j].r = face->glyph->bitmap.buffer[mi * pic.width + mj];
         c[i][j].g = face->glyph->bitmap.buffer[mi * pic.width + mj];
         c[i][j].a = 255;
@@ -70,12 +77,16 @@ void ImageSection()
 {
     FreeImage_Initialise();
     
-    shared_ptr<fipImage> x = make_shared<fipImage>(FIT_BITMAP, w, h, 24);
+    // The last param: bits per pixel. No idea how it works...
+    // 32 bits represents BGRA each in 8 bits.
+    shared_ptr<fipImage> x = make_shared<fipImage>(FIT_BITMAP, w, h, 32);
     
     cout<<"Created is validate: "<<x->isValid()<<endl;
     
     for(int i=0; i<h; i++) for(int j=0; j<w; j++)
     {
+        // The coordinate is exactly x and y,
+        // where x representing columns from left to right, y representing rows from top to bottom.
         x->setPixelColor(j, i, (RGBQUAD*)&c[i][j]);
     }
     
