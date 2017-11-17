@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project FrameworkName="" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <PropertyGroup>
+    <OutputType>exe</OutputType>
+    <OutputPath>./bin</OutputPath>
+    <AssemblyName>x</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Optimize>true</Optimize>
+    <!-- <AllowUnsafeBlocks>true</AllowUnsafeBlocks> -->
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Include="*.cs" />
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Threading.Tasks.Dataflow" />
+    <Reference Include="FreeTypeDotNet"> <HintPath>./lib/FreeImageNET.dll</HintPath> </Reference>
+    <Reference Include="SharpFont"> <HintPath>./lib/SharpFont.dll</HintPath> </Reference>
+  </ItemGroup>
+  
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+</Project>
