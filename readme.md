@@ -6,3 +6,7 @@ Manually copy-paste code and resources to a directories. DK does not want to mak
 
 ### Platform specific
 One project one platform. Turn to the corresponding platform when modifing the project. Or terrible problems of synchronization will take place soon.
+
+### TODO
+- [C#] Multi-Channel Signed Distance Field Generator.
+- [C#] Flow Field Pathfinding (with polygon mesh).
