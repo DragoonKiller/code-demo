@@ -6,4 +6,4 @@ Typically high performance cost.
 
 Parameters mainly set in /Assets/Materials/PointLight/.
 
-![Game screenshot](https://raw.githubusercontent.com/DragoonKiller/codedemo/master/PointLight/visual.png)
+![Game screenshot](https://raw.githubusercontent.com/DragoonKiller/code-demo/master/PointLight/visual.png)
