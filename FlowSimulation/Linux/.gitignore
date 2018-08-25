@@ -1,0 +1,19 @@
+# local configuration
+.vscode
+DocLocal/
+
+# unity generated file
+Assembly-CSharp.csproj
+*.sln
+[Tt]emp/
+[Ll]ibrary/
+[Oo]bj/
+[Bb]uild/
+
+*.rsp
+
+# build files
+bin/
+*.dll
+log.txt
+*.so
