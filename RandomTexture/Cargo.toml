@@ -1,0 +1,12 @@
+[package]
+name = "x"
+version = "0.0.0"
+authors = ["DragoonKiller <947426443@qq.com>"]
+edition = "2018"
+
+[dependencies]
+image = "*"
+imageproc="*"
+rand = "0.6"
+num-traits = "0.2"
+ndarray="0.12.1"
