@@ -1,0 +1,40 @@
+
+                    var lst = new List<(float pop, Vector2 pos)>(2 * sampleCount + 3);
+                    void SubmitToList(Vector2 nxtDir)
+                    {
+                        Vector2 nxtPos = x.to + nxtDir;
+                        float nxtPop = Mathf.PerlinNoise(nxtPos.x / sampleSize.x, nxtPos.y / sampleSize.y);
+                        lst.Add((nxtPop, nxtPos));
+                    }
+                    
+                    for(int i = -sampleCount; i <= sampleCount; i++)
+                    {
+                        SubmitToList(x.dir.Rot(sampleAngle * Mathf.Deg2Rad * i / sampleCount));
+                    }
+                    
+                    SubmitToList(x.dir.RotHalfPi());
+                    SubmitToList((-x.dir).RotHalfPi());
+                    
+                    // The more pop a source has, the more posibility it has more than one branch.
+                    int branch = (int)Range(1f, 3 * h.population);
+                    
+                    for(int br = 0; br < branch; br++)
+                    {
+                        // The more pop a sample point has, the more posibility it is taken to move.
+                        var sum = 0.0f;
+                        foreach(var c in lst) sum += c.pop;
+                        var sample = Range(0f, sum);
+                        for(int i=0; i<lst.Count; i++)
+                        {
+                            if(sample.LE(lst[i].pop))
+                            {
+                                queue.Add(new GenHighway(new Segment(x.to, lst[i].pos), lst[i].pop, h.timeLimit + Range(1, 10)));
+                                lst.RemoveAt(i);
+                                break;
+                            }
+                            else 
+                            {
+                                sample -= lst[i].pop;
+                            }
+                        }
+                    }

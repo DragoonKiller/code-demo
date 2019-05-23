@@ -1,0 +1,31 @@
+
+                if(cur is GenHighway h)
+                {
+                    var lst = new List<(float deltaPop, Vector2 pos)>(2 * sampleCount + 3);
+                    void SubmitToList(Vector2 nxtDir)
+                    {
+                        Vector2 nxtPos = x.to + nxtDir;
+                        float nxtPop = Mathf.PerlinNoise(nxtPos.x / sampleSize.x, nxtPos.y / sampleSize.y);
+                        float deltaPop = (nxtPop - h.population).Abs();
+                        lst.Add((deltaPop, nxtPos));
+                        float poprate = (deltaPop * 0.5f + 0.5f);
+                        Debug.DrawRay(x.to, nxtDir, new Color(poprate, 0.8f, 1.0f - poprate, 1.0f));
+                    }
+                    
+                    for(int i = -sampleCount; i <= sampleCount; i++) SubmitToList(x.dir.Rot(sampleAngle * Mathf.Deg2Rad * i / sampleCount));
+                    SubmitToList(x.dir.RotHalfPi());
+                    SubmitToList((-x.dir).RotHalfPi());
+                    
+                    lst.Sort((w, e) => e.deltaPop.CompareTo(w.deltaPop));
+                    
+                    // The more pop a source has, the more posibility it has more than one branch.
+                    int branch = (int)Range(1f, 4 * h.population);
+                    
+                    for(int br = 0; br < branch; br++)
+                    {
+                        Debug.Log("nxtpop " + (lst[br].deltaPop + h.population));
+                        queue.Add(new GenHighway(new Segment(x.to, lst[br].pos), lst[br].deltaPop + h.population, Range(7, 12)));
+                    }
+                    
+                    Debug.DrawRay(x.to, x.dir, Color.green);
+                }
