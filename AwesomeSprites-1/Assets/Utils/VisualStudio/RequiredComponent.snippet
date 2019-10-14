@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>RequiredComponent</Title>
+      <Author>DragoonKiller</Author>
+      <Description>Add a "RequiredComponent" attribute.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>reqc</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Value</ID>
+          <ToolTip>Value</ToolTip>
+          <Default></Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[[RequireComponent(typeof($Value$))]$end$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
