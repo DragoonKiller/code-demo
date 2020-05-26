@@ -1,0 +1,9 @@
+*.*
+
+!src/**/*.*
+!include/**/*.*
+!Box2DAABBTree.sln
+!Box2DAABBTree.vcxproj
+!Box2DAABBTree.vcxproj.user
+!Box2DAABBTree.vcxproj.filters
+!.gitignore
